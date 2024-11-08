@@ -236,6 +236,10 @@ static int tidss_probe(struct platform_device *pdev)
 	int ret;
 	int irq;
 
+	struct device_node *np = dev->of_node;
+	const char *pixfmt;
+
+
 	dev_dbg(dev, "%s\n", __func__);
 
 	tidss = devm_drm_dev_alloc(&pdev->dev, &tidss_driver,
@@ -273,6 +277,14 @@ static int tidss_probe(struct platform_device *pdev)
 		dev_err(dev, "failed to init OLDI: %d\n", ret);
 		goto err_detach_pm_domains;
 	}
+
+	ret = of_property_read_string(np, "pixel-format", &pixfmt);
+	if (ret) {
+		dev_err(dev, "get of property pixel-format fail\n");
+		return ret;
+	}
+
+	strcpy(tidss->pixfmt, pixfmt);
 
 	if (!tidss->shared_mode) {
 		pm_runtime_enable(dev);

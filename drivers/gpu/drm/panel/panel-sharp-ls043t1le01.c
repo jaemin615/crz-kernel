@@ -164,15 +164,15 @@ poweroff:
 }
 
 static const struct drm_display_mode default_mode = {
-	.clock = (540 + 48 + 32 + 80) * (960 + 3 + 10 + 15) * 60 / 1000,
+	.clock = 41118,
 	.hdisplay = 540,
 	.hsync_start = 540 + 48,
-	.hsync_end = 540 + 48 + 32,
-	.htotal = 540 + 48 + 32 + 80,
+	.hsync_end = 540 + 48 + 80,
+	.htotal = 540 + 48 + 80 + 32,
 	.vdisplay = 960,
 	.vsync_start = 960 + 3,
-	.vsync_end = 960 + 3 + 10,
-	.vtotal = 960 + 3 + 10 + 15,
+	.vsync_end = 960 + 3 + 15,
+	.vtotal = 960 + 3 + 15 + 1,
 };
 
 static int sharp_nt_panel_get_modes(struct drm_panel *panel,

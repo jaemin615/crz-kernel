@@ -1414,6 +1414,12 @@ void serial8250_em485_stop_tx(struct uart_8250_port *p)
 		mcr &= ~UART_MCR_RTS;
 	serial8250_out_MCR(p, mcr);
 
+	if (p->port.rs485.flags & SER_RS485_RTS_AFTER_SEND)
+		gpiod_set_value(p->port.rs485_rts_gpio, 1);
+	else
+		gpiod_set_value(p->port.rs485_rts_gpio, 0);
+
+
 	/*
 	 * Empty the RX FIFO, we are not interested in anything
 	 * received during the half-duplex transmission.
@@ -1578,6 +1584,12 @@ void serial8250_em485_start_tx(struct uart_8250_port *up)
 	else
 		mcr &= ~UART_MCR_RTS;
 	serial8250_out_MCR(up, mcr);
+
+	if (up->port.rs485.flags & SER_RS485_RTS_ON_SEND)
+		gpiod_set_value(up->port.rs485_rts_gpio, 1);
+	else
+		gpiod_set_value(up->port.rs485_rts_gpio, 0);
+
 }
 EXPORT_SYMBOL_GPL(serial8250_em485_start_tx);
 

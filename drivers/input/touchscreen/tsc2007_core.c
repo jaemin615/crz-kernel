@@ -369,6 +369,7 @@ static int tsc2007_probe(struct i2c_client *client)
 	if (err) {
 		dev_err(&client->dev, "Failed to request irq %d: %d\n",
 			ts->irq, err);
+		tsc2007_xfer(ts, ADC_ON_12BIT);
 		return err;
 	}
 

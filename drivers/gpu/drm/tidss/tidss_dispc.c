@@ -2132,6 +2132,119 @@ static void dispc_plane_set_pixel_format(struct dispc_device *dispc,
 {
 	unsigned int i;
 
+		if (!strncmp(dispc->tidss->pixfmt, "RGB24", 5))
+	{
+		switch(fourcc)
+		{
+			case DRM_FORMAT_ABGR4444:
+				fourcc = DRM_FORMAT_ARGB4444;
+				break;
+		
+			case DRM_FORMAT_BGR565:
+				fourcc = DRM_FORMAT_RGB565;
+				break;
+
+			case DRM_FORMAT_ABGR1555:
+				fourcc = DRM_FORMAT_ARGB1555;
+				break;
+
+			case DRM_FORMAT_ABGR8888:
+				fourcc = DRM_FORMAT_ARGB8888;
+				break;
+
+			case DRM_FORMAT_BGRA8888:
+				fourcc = DRM_FORMAT_RGBA8888;
+				break;
+
+			case DRM_FORMAT_BGR888:
+				fourcc = DRM_FORMAT_RGB888;
+				break;
+
+			case DRM_FORMAT_ABGR2101010:
+				fourcc = DRM_FORMAT_ARGB2101010;
+				break;
+
+			case DRM_FORMAT_XBGR4444:
+				fourcc = DRM_FORMAT_XRGB4444;
+				break;
+
+			case DRM_FORMAT_XBGR1555:
+				fourcc = DRM_FORMAT_XRGB1555;
+				break;
+
+			case DRM_FORMAT_XBGR8888:
+				fourcc = DRM_FORMAT_XRGB8888;
+				break;
+
+			case DRM_FORMAT_BGRX8888:
+				fourcc = DRM_FORMAT_RGBX8888;
+				break;
+
+			case DRM_FORMAT_XBGR2101010:
+				fourcc = DRM_FORMAT_XRGB2101010;
+				break;
+			
+			default:
+				break;
+		}	
+	}
+	else
+	{
+		switch(fourcc)
+		{
+			case DRM_FORMAT_ARGB4444:
+				fourcc = DRM_FORMAT_ABGR4444;
+				break;
+		
+			case DRM_FORMAT_RGB565:
+				fourcc = DRM_FORMAT_BGR565;
+				break;
+
+			case DRM_FORMAT_ARGB1555:
+				fourcc = DRM_FORMAT_ABGR1555;
+				break;
+
+			case DRM_FORMAT_ARGB8888:
+				fourcc = DRM_FORMAT_ABGR8888;
+				break;
+
+			case DRM_FORMAT_RGBA8888:
+				fourcc = DRM_FORMAT_BGRA8888;
+				break;
+
+			case DRM_FORMAT_RGB888:
+				fourcc = DRM_FORMAT_BGR888;
+				break;
+
+			case DRM_FORMAT_ARGB2101010:
+				fourcc = DRM_FORMAT_ABGR2101010;
+				break;
+
+			case DRM_FORMAT_XRGB4444:
+				fourcc = DRM_FORMAT_XBGR4444;
+				break;
+
+			case DRM_FORMAT_XRGB1555:
+				fourcc = DRM_FORMAT_XBGR1555;
+				break;
+
+			case DRM_FORMAT_XRGB8888:
+				fourcc = DRM_FORMAT_XBGR8888;
+				break;
+
+			case DRM_FORMAT_RGBX8888:
+				fourcc = DRM_FORMAT_BGRX8888;
+				break;
+
+			case DRM_FORMAT_XRGB2101010:
+				fourcc = DRM_FORMAT_XBGR2101010;
+				break;
+			
+			default:
+				break;
+		}	
+	}
+
 	for (i = 0; i < ARRAY_SIZE(dispc_color_formats); ++i) {
 		if (dispc_color_formats[i].fourcc == fourcc) {
 			VID_REG_FLD_MOD(dispc, hw_plane, DISPC_VID_ATTRIBUTES,
