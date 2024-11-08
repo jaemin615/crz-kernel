@@ -47,6 +47,9 @@ struct tidss_device {
 
 	u32 boot_enabled_vp_mask;
 	bool simplefb_enabled;
+
+	//crazyboys 2023.12.15
+	char pixfmt[10];
 };
 
 #define to_tidss(__dev) container_of(__dev, struct tidss_device, ddev)
